@@ -6,7 +6,7 @@ df <- read.csv("tennis-data.csv")
 ############################ DATA PREPROCESSING ############################
 
 # remove unnecessary columns
-unnecessary_columns <- c("WTA", "Tournament", "Date", "Surface", 
+unnecessary_columns <- c("WTA", "Tournament", "Wsets", "Lsets", "Date", "Surface", 
                          "Best.of", "Winner", "Loser")
 df <- df[,!names(df) %in% unnecessary_columns]
 
@@ -90,7 +90,7 @@ df <- df[,!names(df) %in% c("AvgW", "AvgL")]
 library("fastDummies")
 df <- dummy_cols(df, select_columns=c("Location", "Tier", "Court", 
                                       "Round", "Comment"),
-                                      remove_selected_columns=T)
+                 remove_selected_columns=T)
 
 ########################## END DATA PREPROCESSING ##########################
 
@@ -121,18 +121,18 @@ for (k in 2:10)
                          FUNcluster = "kmeans",
                          k=k,
                          graph=0,
-                         nstart=20)$silinfo$avg.width
+                         nstart=100)$silinfo$avg.width
 }
 plot(silh.coef, type="b", pch=19, col=4)
 which.max(silh.coef)
-# cluster validation suggests k=9
+# cluster validation suggests k=10
 
 # K-Means clustering with k=3
-km.out <- eclust(df,                     
-                 FUNcluster = "kmeans",
-                 k=3,
-                 nstart=100)
-km.out
+km.out.k3 <- eclust(df,                     
+                    FUNcluster = "kmeans",
+                    k=3,
+                    nstart=100)
+km.out.k3
 
 
 # Hierarchical clustering
@@ -141,3 +141,31 @@ hc.complete <- hclust(dist(df),
 plot(hc.complete)
 
 ############################## END CLUSTERING ##############################
+
+############################## INTERPRETATION ##############################
+
+# slices of each cluster assignment
+
+# K-Means clustering solution with k=10
+df$k10.clust.id <- km.out$cluster
+k10.cluster_1 <- df[df$k10.clust.id == 1, ]
+k10.cluster_2 <- df[df$k10.clust.id == 2, ]
+k10.cluster_3 <- df[df$k10.clust.id == 3, ]
+k10.cluster_4 <- df[df$k10.clust.id == 4, ]
+k10.cluster_5 <- df[df$k10.clust.id == 5, ]
+k10.cluster_6 <- df[df$k10.clust.id == 6, ]
+k10.cluster_7 <- df[df$k10.clust.id == 7, ]
+k10.cluster_8 <- df[df$k10.clust.id == 8, ]
+k10.cluster_9 <- df[df$k10.clust.id == 9, ]
+k10.cluster_10 <- df[df$k10.clust.id == 10, ]
+
+# K-Means clustering solution with k=3
+df$k3.clust.id <- km.out.k3$cluster
+k3.cluster_1 <- df[df$k3.clust.id == 1, ]
+k3.cluster_2 <- df[df$k3.clust.id == 2, ]
+k3.cluster_3 <- df[df$k3.clust.id == 3, ]
+
+# Hierarchical clustering solution with k=3
+df$k2.hclust.id <- cutree(hc.complete, k=2)
+k3.hcluster_1 <- df[df$k2.hclust.id == 1, ]
+k3.hcluster_2 <- df[df$k2.hclust.id == 2, ]
