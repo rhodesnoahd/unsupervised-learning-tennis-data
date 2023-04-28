@@ -125,14 +125,14 @@ for (k in 2:10)
 }
 plot(silh.coef, type="b", pch=19, col=4)
 which.max(silh.coef)
-# cluster validation suggests k=10
+# cluster validation suggests k=9
 
-# K-Means clustering with k=3
-km.out.k3 <- eclust(df,                     
+# K-Means clustering with k=9
+km.out.k9 <- eclust(df,                     
                     FUNcluster = "kmeans",
-                    k=3,
+                    k=9,
                     nstart=100)
-km.out.k3
+km.out.k9
 
 
 # Hierarchical clustering
@@ -160,12 +160,18 @@ k10.cluster_9 <- df[df$k10.clust.id == 9, ]
 k10.cluster_10 <- df[df$k10.clust.id == 10, ]
 
 # K-Means clustering solution with k=3
-df$k3.clust.id <- km.out.k3$cluster
-k3.cluster_1 <- df[df$k3.clust.id == 1, ]
-k3.cluster_2 <- df[df$k3.clust.id == 2, ]
-k3.cluster_3 <- df[df$k3.clust.id == 3, ]
+df$k9.clust.id <- km.out.k9$cluster
+k9.cluster_1 <- df[df$k9.clust.id == 1, ]
+k9.cluster_2 <- df[df$k9.clust.id == 2, ]
+k9.cluster_3 <- df[df$k9.clust.id == 3, ]
+k9.cluster_4 <- df[df$k9.clust.id == 4, ]
+k9.cluster_5 <- df[df$k9.clust.id == 5, ]
+k9.cluster_6 <- df[df$k9.clust.id == 6, ]
+k9.cluster_7 <- df[df$k9.clust.id == 7, ]
+k9.cluster_8 <- df[df$k9.clust.id == 8, ]
+k9.cluster_9 <- df[df$k9.clust.id == 9, ]
 
 # Hierarchical clustering solution with k=2
 df$k2.hclust.id <- cutree(hc.complete, k=2)
-k3.hcluster_1 <- df[df$k2.hclust.id == 1, ]
-k3.hcluster_2 <- df[df$k2.hclust.id == 2, ]
+k2.hcluster_1 <- df[df$k2.hclust.id == 1, ]
+k2.hcluster_2 <- df[df$k2.hclust.id == 2, ]
