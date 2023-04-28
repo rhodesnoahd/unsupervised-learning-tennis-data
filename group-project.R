@@ -165,7 +165,7 @@ k3.cluster_1 <- df[df$k3.clust.id == 1, ]
 k3.cluster_2 <- df[df$k3.clust.id == 2, ]
 k3.cluster_3 <- df[df$k3.clust.id == 3, ]
 
-# Hierarchical clustering solution with k=3
+# Hierarchical clustering solution with k=2
 df$k2.hclust.id <- cutree(hc.complete, k=2)
 k3.hcluster_1 <- df[df$k2.hclust.id == 1, ]
 k3.hcluster_2 <- df[df$k2.hclust.id == 2, ]
