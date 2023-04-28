@@ -175,3 +175,15 @@ k9.cluster_9 <- df[df$k9.clust.id == 9, ]
 df$k2.hclust.id <- cutree(hc.complete, k=2)
 k2.hcluster_1 <- df[df$k2.hclust.id == 1, ]
 k2.hcluster_2 <- df[df$k2.hclust.id == 2, ]
+
+v1 <- sum(k2.hcluster_1$B365)/nrow(k2.hcluster_1)*100
+v2 <- sum(k2.hcluster_1$PS)/nrow(k2.hcluster_1)*100
+v3 <- sum(k2.hcluster_1$Max)/nrow(k2.hcluster_1)*100
+v4 <- sum(k2.hcluster_1$Avg)/nrow(k2.hcluster_1)*100
+(v1+v2+v3+v4)/4
+
+w1 <- sum(k2.hcluster_2$B365)/nrow(k2.hcluster_1)*100
+w2 <- sum(k2.hcluster_2$PS)/nrow(k2.hcluster_1)*100
+w3 <- sum(k2.hcluster_2$Max)/nrow(k2.hcluster_1)*100
+w4 <- sum(k2.hcluster_2$Avg)/nrow(k2.hcluster_1)*100
+(w1+w2+w3+w4)/4
